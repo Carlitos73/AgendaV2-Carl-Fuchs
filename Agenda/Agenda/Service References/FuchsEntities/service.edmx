@@ -1,0 +1,228 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="FUCHSModel" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="COLLABORATEUR">
+        <Key>
+          <PropertyRef Name="idCollaborateur" />
+        </Key>
+        <Property Name="idCollaborateur" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="0" />
+        <Property Name="nomCollaborateur" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="prenomCollaborateur" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="adresseCollaborateur" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="cpCollaborateur" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="villeCollaborateur" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="dateEmbauche" Type="Edm.DateTime" Precision="0" />
+        <NavigationProperty Name="Poste" Relationship="FUCHSModel.FK_Poste_Collaborateur" ToRole="Poste" FromRole="COLLABORATEUR" />
+        <NavigationProperty Name="RendezVous" Relationship="FUCHSModel.FK_RendezVous_COLLABORATEUR" ToRole="RendezVous" FromRole="COLLABORATEUR" />
+      </EntityType>
+      <EntityType Name="Poste">
+        <Key>
+          <PropertyRef Name="codeCollaborateur" />
+          <PropertyRef Name="dateDebutPoste" />
+        </Key>
+        <Property Name="dateDebutPoste" Type="Edm.DateTime" Nullable="false" Precision="0" />
+        <Property Name="datefinPoste" Type="Edm.DateTime" Nullable="false" Precision="0" />
+        <Property Name="codeRegion" Type="Edm.Decimal" Precision="18" Scale="0" />
+        <Property Name="codeCollaborateur" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="0" />
+        <Property Name="codeRôle" Type="Edm.Decimal" Precision="18" Scale="0" />
+        <Property Name="codeSecteur" Type="Edm.Decimal" Precision="18" Scale="0" />
+        <NavigationProperty Name="COLLABORATEUR" Relationship="FUCHSModel.FK_Poste_Collaborateur" ToRole="COLLABORATEUR" FromRole="Poste" />
+        <NavigationProperty Name="REGION" Relationship="FUCHSModel.FK_Poste_Region" ToRole="REGION" FromRole="Poste" />
+        <NavigationProperty Name="Rôle" Relationship="FUCHSModel.FK_Poste_Rôle" ToRole="Rôle" FromRole="Poste" />
+        <NavigationProperty Name="SECTEUR" Relationship="FUCHSModel.FK_Poste_Secteur" ToRole="SECTEUR" FromRole="Poste" />
+      </EntityType>
+      <EntityType Name="Praticien">
+        <Key>
+          <PropertyRef Name="idPraticien" />
+        </Key>
+        <Property Name="idPraticien" Type="Edm.Int32" Nullable="false" />
+        <Property Name="nomPraticien" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="prenomPraticien" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="RendezVous" Relationship="FUCHSModel.FK_RendezVous_Praticien" ToRole="RendezVous" FromRole="Praticien" />
+      </EntityType>
+      <EntityType Name="REGION">
+        <Key>
+          <PropertyRef Name="CodeRegion" />
+        </Key>
+        <Property Name="CodeRegion" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="0" />
+        <Property Name="libelleRegion" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="SecteurRegion" Type="Edm.Decimal" Precision="18" Scale="0" />
+        <NavigationProperty Name="Poste" Relationship="FUCHSModel.FK_Poste_Region" ToRole="Poste" FromRole="REGION" />
+        <NavigationProperty Name="SECTEUR" Relationship="FUCHSModel.FK_Region_Secteur" ToRole="SECTEUR" FromRole="REGION" />
+      </EntityType>
+      <EntityType Name="RendezVous">
+        <Key>
+          <PropertyRef Name="dateRdv" />
+          <PropertyRef Name="idCollaborateur" />
+        </Key>
+        <Property Name="idPraticien" Type="Edm.Int32" Nullable="false" />
+        <Property Name="dateRdv" Type="Edm.DateTime" Nullable="false" Precision="3" />
+        <Property Name="idCollaborateur" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="0" />
+        <NavigationProperty Name="COLLABORATEUR" Relationship="FUCHSModel.FK_RendezVous_COLLABORATEUR" ToRole="COLLABORATEUR" FromRole="RendezVous" />
+        <NavigationProperty Name="Praticien" Relationship="FUCHSModel.FK_RendezVous_Praticien" ToRole="Praticien" FromRole="RendezVous" />
+      </EntityType>
+      <EntityType Name="Rôle">
+        <Key>
+          <PropertyRef Name="codeRôle" />
+        </Key>
+        <Property Name="codeRôle" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="0" />
+        <Property Name="libelleRôle" Type="Edm.String" MaxLength="25" FixedLength="true" Unicode="true" />
+        <NavigationProperty Name="Poste" Relationship="FUCHSModel.FK_Poste_Rôle" ToRole="Poste" FromRole="Rôle" />
+      </EntityType>
+      <EntityType Name="SECTEUR">
+        <Key>
+          <PropertyRef Name="codeSecteur" />
+        </Key>
+        <Property Name="codeSecteur" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="0" />
+        <Property Name="libelleSecteur" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Poste" Relationship="FUCHSModel.FK_Poste_Secteur" ToRole="Poste" FromRole="SECTEUR" />
+        <NavigationProperty Name="REGION" Relationship="FUCHSModel.FK_Region_Secteur" ToRole="REGION" FromRole="SECTEUR" />
+      </EntityType>
+      <EntityType Name="sysdiagrams">
+        <Key>
+          <PropertyRef Name="diagram_id" />
+        </Key>
+        <Property Name="name" Type="Edm.String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        <Property Name="principal_id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="diagram_id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="version" Type="Edm.Int32" />
+        <Property Name="definition" Type="Edm.Binary" MaxLength="Max" FixedLength="false" />
+      </EntityType>
+      <EntityType Name="VueRDV">
+        <Key>
+          <PropertyRef Name="dateRdv" />
+        </Key>
+        <Property Name="nomCollaborateur" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="prenomCollaborateur" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="nomPraticien" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="prenomPraticien" Type="Edm.String" MaxLength="50" FixedLength="false" Unicode="true" />
+        <Property Name="dateRdv" Type="Edm.DateTime" Nullable="false" Precision="3" />
+      </EntityType>
+      <Association Name="FK_Poste_Collaborateur">
+        <End Type="FUCHSModel.COLLABORATEUR" Role="COLLABORATEUR" Multiplicity="1" />
+        <End Type="FUCHSModel.Poste" Role="Poste" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="COLLABORATEUR">
+            <PropertyRef Name="idCollaborateur" />
+          </Principal>
+          <Dependent Role="Poste">
+            <PropertyRef Name="codeCollaborateur" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_RendezVous_COLLABORATEUR">
+        <End Type="FUCHSModel.COLLABORATEUR" Role="COLLABORATEUR" Multiplicity="1" />
+        <End Type="FUCHSModel.RendezVous" Role="RendezVous" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="COLLABORATEUR">
+            <PropertyRef Name="idCollaborateur" />
+          </Principal>
+          <Dependent Role="RendezVous">
+            <PropertyRef Name="idCollaborateur" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Poste_Region">
+        <End Type="FUCHSModel.REGION" Role="REGION" Multiplicity="0..1" />
+        <End Type="FUCHSModel.Poste" Role="Poste" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="REGION">
+            <PropertyRef Name="CodeRegion" />
+          </Principal>
+          <Dependent Role="Poste">
+            <PropertyRef Name="codeRegion" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Poste_Rôle">
+        <End Type="FUCHSModel.Rôle" Role="Rôle" Multiplicity="0..1" />
+        <End Type="FUCHSModel.Poste" Role="Poste" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Rôle">
+            <PropertyRef Name="codeRôle" />
+          </Principal>
+          <Dependent Role="Poste">
+            <PropertyRef Name="codeRôle" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Poste_Secteur">
+        <End Type="FUCHSModel.SECTEUR" Role="SECTEUR" Multiplicity="0..1" />
+        <End Type="FUCHSModel.Poste" Role="Poste" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="SECTEUR">
+            <PropertyRef Name="codeSecteur" />
+          </Principal>
+          <Dependent Role="Poste">
+            <PropertyRef Name="codeSecteur" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_RendezVous_Praticien">
+        <End Type="FUCHSModel.Praticien" Role="Praticien" Multiplicity="1" />
+        <End Type="FUCHSModel.RendezVous" Role="RendezVous" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="Praticien">
+            <PropertyRef Name="idPraticien" />
+          </Principal>
+          <Dependent Role="RendezVous">
+            <PropertyRef Name="idPraticien" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+      <Association Name="FK_Region_Secteur">
+        <End Type="FUCHSModel.SECTEUR" Role="SECTEUR" Multiplicity="0..1" />
+        <End Type="FUCHSModel.REGION" Role="REGION" Multiplicity="*" />
+        <ReferentialConstraint>
+          <Principal Role="SECTEUR">
+            <PropertyRef Name="codeSecteur" />
+          </Principal>
+          <Dependent Role="REGION">
+            <PropertyRef Name="SecteurRegion" />
+          </Dependent>
+        </ReferentialConstraint>
+      </Association>
+    </Schema>
+    <Schema Namespace="KELLER_DAO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityContainer Name="FUCHSEntities" m:IsDefaultEntityContainer="true" p6:LazyLoadingEnabled="true" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntitySet Name="COLLABORATEUR" EntityType="FUCHSModel.COLLABORATEUR" />
+        <EntitySet Name="Poste" EntityType="FUCHSModel.Poste" />
+        <EntitySet Name="Praticien" EntityType="FUCHSModel.Praticien" />
+        <EntitySet Name="REGION" EntityType="FUCHSModel.REGION" />
+        <EntitySet Name="RendezVous" EntityType="FUCHSModel.RendezVous" />
+        <EntitySet Name="Rôle" EntityType="FUCHSModel.Rôle" />
+        <EntitySet Name="SECTEUR" EntityType="FUCHSModel.SECTEUR" />
+        <EntitySet Name="sysdiagrams" EntityType="FUCHSModel.sysdiagrams" />
+        <EntitySet Name="VueRDV" EntityType="FUCHSModel.VueRDV" />
+        <AssociationSet Name="FK_Poste_Collaborateur" Association="FUCHSModel.FK_Poste_Collaborateur">
+          <End Role="COLLABORATEUR" EntitySet="COLLABORATEUR" />
+          <End Role="Poste" EntitySet="Poste" />
+        </AssociationSet>
+        <AssociationSet Name="FK_RendezVous_COLLABORATEUR" Association="FUCHSModel.FK_RendezVous_COLLABORATEUR">
+          <End Role="COLLABORATEUR" EntitySet="COLLABORATEUR" />
+          <End Role="RendezVous" EntitySet="RendezVous" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Poste_Region" Association="FUCHSModel.FK_Poste_Region">
+          <End Role="Poste" EntitySet="Poste" />
+          <End Role="REGION" EntitySet="REGION" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Poste_Rôle" Association="FUCHSModel.FK_Poste_Rôle">
+          <End Role="Poste" EntitySet="Poste" />
+          <End Role="Rôle" EntitySet="Rôle" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Poste_Secteur" Association="FUCHSModel.FK_Poste_Secteur">
+          <End Role="Poste" EntitySet="Poste" />
+          <End Role="SECTEUR" EntitySet="SECTEUR" />
+        </AssociationSet>
+        <AssociationSet Name="FK_RendezVous_Praticien" Association="FUCHSModel.FK_RendezVous_Praticien">
+          <End Role="Praticien" EntitySet="Praticien" />
+          <End Role="RendezVous" EntitySet="RendezVous" />
+        </AssociationSet>
+        <AssociationSet Name="FK_Region_Secteur" Association="FUCHSModel.FK_Region_Secteur">
+          <End Role="REGION" EntitySet="REGION" />
+          <End Role="SECTEUR" EntitySet="SECTEUR" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

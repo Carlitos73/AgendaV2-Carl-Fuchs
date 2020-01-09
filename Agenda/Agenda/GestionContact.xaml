@@ -1,0 +1,93 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="Agenda.GestionContact"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot est la grille racine où tout le contenu de la page est placé-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel contient le nom de l'application et le titre de la page-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock Text="Agenda" Style="{StaticResource PhoneTextNormalStyle}"/>
+        </StackPanel>
+
+
+        <!--Affichage Contact-->
+        <ListBox Name="listcontact" Margin="30,60,31,100" Grid.Row="1" >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock   Text=" "/>
+                        <TextBlock   Text="{Binding Nom}"/>
+                        <TextBlock   Text=" "/>
+                        <TextBlock   Text="{Binding Prenom}"/>
+                        <!--<TextBlock   Text=" Mail : "/>
+                        <TextBlock   Text="{Binding Email}"/>
+                        <TextBlock   Text=" N° "/>
+                        <TextBlock   Text="{Binding Mobile}"/>-->
+                        <TextBlock   Text="&#x0a;"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Border x:Name="AddContactPanel" Visibility="Collapsed" Margin="30,245,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="414" Width="419" Grid.Row="1" Background="DarkGray">
+            <Grid x:Name="ContentPanel2" Grid.Row="1" Margin="10,10,-17,10">
+                <Grid Name="grid1" Margin="0,15,-6,14"  VerticalAlignment="Top" HorizontalAlignment="Left" Width="300">
+                    <TextBlock Text="Nom : " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBox x:Name="Nom" Grid.Row="0" Grid.Column="1" Margin="0,0,-97,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Prénom : " Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBox x:Name="Prenom" Grid.Row="1" Grid.Column="1" Margin="0,0,-97,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Email : " Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBox x:Name="Email" Grid.Row="2" Grid.Column="1" Margin="0,0,-97,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="Mobile : " Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBox x:Name="Mobile" Grid.Row="3" Grid.Column="1" Margin="0,0,-97,0" VerticalAlignment="Center"/>
+                    <Button x:Name="btnEnregistrer" Content="Enregistrer" HorizontalAlignment="Left" Margin="10,33,0,-36" Grid.Row="4" Click="btnEnregistrer_Click"/>
+                    <Button x:Name="btnAnnuler" Content="Annuler" Grid.Column="1" HorizontalAlignment="Left" Margin="10,33,-97,-36" Grid.Row="4" Width="187" Height="73" VerticalAlignment="Top" Click="btnAnnuler_Click"/>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width= "200"/>
+                        <ColumnDefinition Width=" 100"/>
+                    </Grid.ColumnDefinitions>
+
+
+                </Grid>
+            </Grid>
+        </Border>
+
+
+        <!--ContentPanel - placez tout contenu supplémentaire ici-->
+        <Grid x:Name="ContentPanel" Margin="0,17,0,-124" Grid.RowSpan="2">
+            <Button x:Name="btnAjouterContact" Content="+" HorizontalAlignment="Left" Margin="366,110,0,665" VerticalAlignment="Center" Height="100" Width="84" Background="#FF2CB01F" Click="btnAjouterContact_Click" FontSize="48" BorderThickness="1"/>
+            <Button x:Name="btnTrierContact" Content="Abc" HorizontalAlignment="Left" Margin="366,10,0,765" VerticalAlignment="Center" Height="100" Width="84" Background="#FFEC6E05" FontSize="20" BorderThickness="1" Click="btnTrierContact_Click"/>
+            <TextBlock Margin="10,10,197,744" Style="{StaticResource PhoneTextTitle1Style}">
+                <Run FontSize="36" Text=" "/>
+                <Run FontSize="36" Text="Contacts"/>
+            </TextBlock>
+        </Grid>
+        <!--ContentPanel - placez tout contenu supplémentaire ici-->
+
+    </Grid>
+
+
+</phone:PhoneApplicationPage>
